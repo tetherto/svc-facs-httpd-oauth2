@@ -34,7 +34,7 @@ class HttpdAuthFacility extends Base {
     return specs
   }
 
-  injection () {
+  injection (opts = {}) {
     const creds = this.conf.credentials
     const specs = this.getSpecs(this.conf.method)
 
@@ -47,7 +47,8 @@ class HttpdAuthFacility extends Base {
       },
       startRedirectPath: specs.startRedirectPath,
       callbackUri: specs.callbackUri,
-      callbackUriParams: specs.callbackUriParams
+      callbackUriParams: specs.callbackUriParams,
+      ...opts
     }]
   }
 
