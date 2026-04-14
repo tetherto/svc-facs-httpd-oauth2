@@ -4,7 +4,7 @@ const async = require('async')
 const Base = require('bfx-facs-base')
 const FastifyAuth = require('@fastify/oauth2')
 
-const SUPPORTED_AUTHS = ['google']
+const SUPPORTED_AUTHS = ['google', 'microsoft']
 
 class HttpdAuthFacility extends Base {
   constructor (caller, opts, ctx) {
@@ -29,6 +29,15 @@ class HttpdAuthFacility extends Base {
           access_type: 'offline'
         }
         break
+      case 'microsoft':
+        specs.name = 'microsoftOAuth2'
+        specs.auth = FastifyAuth.MICROSOFT_CONFIGURATION
+        specs.startRedirectPath = this.conf.startRedirectPath || '/login/microsoft'
+        specs.callbackUri = this.conf.callbackUri || '/login/microsoft/callback'
+        specs.callbackUriParams = {
+          response_mode: 'query'
+        }
+        break
     }
 
     return specs
@@ -37,13 +46,20 @@ class HttpdAuthFacility extends Base {
   injection (opts = {}) {
     const creds = this.conf.credentials
     const specs = this.getSpecs(this.conf.method)
+    const auth = this.conf.method === 'microsoft'
+      ? {
+          ...specs.auth,
+          authorizePath: `/${creds.tenant}/oauth2/v2.0/authorize`,
+          tokenPath: `/${creds.tenant}/oauth2/v2.0/token`
+        }
+      : specs.auth
 
     return [FastifyAuth, {
       name: specs.name,
-      scope: ['profile', 'email'],
+      scope: this.conf.method === 'microsoft' ? ['openid', 'profile', 'email'] : ['profile', 'email'],
       credentials: {
         client: creds.client,
-        auth: specs.auth
+        auth
       },
       startRedirectPath: specs.startRedirectPath,
       callbackUri: specs.callbackUri,
