@@ -1,7 +1,7 @@
 'use strict'
 
 const async = require('async')
-const Base = require('bfx-facs-base')
+const Base = require('@bitfinex/bfx-facs-base')
 const FastifyAuth = require('@fastify/oauth2')
 
 const SUPPORTED_AUTHS = ['google', 'microsoft']

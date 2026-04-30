@@ -1,6 +1,6 @@
 {
   "name": "svc-facs-httpd-oauth2",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "private": false,
   "description": "SVC Facility Http Auth oauth2",
   "author": {
@@ -19,7 +19,7 @@
   "dependencies": {
     "@fastify/oauth2": "^7.2.2",
     "async": "^3.2.1",
-    "bfx-facs-base": "git+https://github.com/bitfinexcom/bfx-facs-base.git",
+    "@bitfinex/bfx-facs-base": "git+https://github.com/bitfinexcom/bfx-facs-base.git",
     "debug": "^4.3.4"
   },
   "devDependencies": {
