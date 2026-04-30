@@ -1,5 +1,5 @@
 {
-  "name": "svc-facs-httpd-oauth2",
+  "name": "@tetherto/svc-facs-httpd-oauth2",
   "version": "1.0.0",
   "private": false,
   "description": "SVC Facility Http Auth oauth2",
