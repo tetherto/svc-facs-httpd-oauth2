@@ -1,6 +1,6 @@
 {
   "name": "@tetherto/svc-facs-httpd-oauth2",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "description": "SVC Facility Http Auth oauth2",
   "author": {
